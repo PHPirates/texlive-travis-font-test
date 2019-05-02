@@ -1,0 +1,15 @@
+language: generic
+
+install:
+ - source ./texlive/texlive_install.sh
+cache:
+  directories:
+    - /tmp/texlive
+    - $HOME/.texlive
+# Change working directory so including files will work
+before_script: cd $TRAVIS_BUILD_DIR/src/
+script:
+  # texliveonfly will download packages automatically,
+  - texliveonfly ./fonts-test.tex
+  # Use latexmk to automatically handle bibtex and references
+  - latexmk -pdf ./fonts-test.tex
